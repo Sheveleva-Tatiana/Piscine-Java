@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Program {
 
     public static boolean checkNegative(int number) {
-        if (number < 0) {
+        if (number <= 1) {
             System.err.println("Illegal Argument");
-            return true;
+            System.exit(-1);
         }
         return false;
     }
