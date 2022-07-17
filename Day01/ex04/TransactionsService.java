@@ -16,7 +16,13 @@ public class TransactionsService {
     }
 
     public int getUserBalance(User user) {
-        return user.getBalance();
+        int idUser = user.getIdentifier();
+        for (int i = 0; i < userList.getUserCount(); i++) {
+            if (idUser == userList.getUserByIndex(i).getIdentifier()) {
+                return user.getBalance();
+            }
+        }
+        throw new UserNotFoundException("User not found");
     }
 
     public void executeTransaction(int senderId, int recipientId, int amount) {

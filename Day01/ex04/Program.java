@@ -57,5 +57,12 @@ public class Program {
         } catch (IllegalTransactionException ex) {
             System.out.println(ex);
         }
+        User noname = new User(100, "NoName");
+        try {
+            facade.getUserBalance(noname);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        System.out.println("Конец программы");
     }
 }

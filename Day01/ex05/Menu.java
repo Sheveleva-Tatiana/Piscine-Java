@@ -151,16 +151,16 @@ public class Menu {
 
     private int hgetIdUser(Transaction transaction) {
         if (transaction.getTransferCategory() == Transaction.Category.DEBIT) {
-            return transaction.getRecipient().getIdentifier();
+            return transaction.getSender().getIdentifier();
         }
-        return transaction.getSender().getIdentifier();
+        return transaction.getRecipient().getIdentifier();
     }
 
     private String hgetNameOfTrans(Transaction transaction) {
         if (transaction.getTransferCategory() == Transaction.Category.DEBIT) {
-            return transaction.getRecipient().getName();
+            return transaction.getSender().getName();
         }
-        return transaction.getSender().getName();
+        return transaction.getRecipient().getName();
     }
 
     private void viewTransactions() {

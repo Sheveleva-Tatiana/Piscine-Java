@@ -20,7 +20,6 @@ public class Transaction {
         this.sender = sender;
         this.transferCategory = transferCategory;
         setTransferAmount(transferAmount);
-
     }
 
     public UUID getIdentifier() {
@@ -62,9 +61,9 @@ public class Transaction {
     }
 
     public void setTransferAmount(Integer transferAmount) {
-        if (this.transferCategory == Category.CREDIT && (transferAmount > 0 || sender.getBalance() <= 0)) {
+        if (this.transferCategory == Category.CREDIT && (transferAmount > 0 || sender.getBalance() < transferAmount)) {
             this.transferAmount = 0;
-        } else if (this.transferCategory == Category.DEBIT && (transferAmount < 0 || sender.getBalance() <= 0)) {
+        } else if (this.transferCategory == Category.DEBIT && (transferAmount < 0 || sender.getBalance() < transferAmount)) {
             this.transferAmount = 0;
         } else {
             this.transferAmount = transferAmount;
