@@ -2,11 +2,17 @@
 <details>
 <summary>ИНФА С ТЕЛЕГРАМ КАНАЛА Piscine Java - 2022 [p2p]</summary>
 
-Видео (автор Олег Румянцев) по Бассейну с Day 03 по Day 08 :-)
-https://www.youtube.com/channel/UC5uU5-C19oEPLWIvyo3a1cQ
-________________________________________________________________________________________________________________
-Друзья, всем хороших выходных! Тем, кто не знаком с SQL, советую выучить основы. Вот хороший сайт, который мне помог https://sqlbolt.com/ (можно пройти за пару часов). Это все для 05 дня, который ждет вас в понедельник).
-
+<details>
+<summary>Полезные ссылки</summary>
+  
+* Day03-08: https://www.youtube.com/channel/UC5uU5-C19oEPLWIvyo3a1cQ
+  
+* SQL: https://sqlbolt.com/
+  
+* Сабджекты и чек-листы: https://github.com/ruslan16/JavaPiscine42/tree/master/subject%2Bchecklist
+  
+</details>
+  
 <details>
 <summary>Hot Keys:</summary>
   
@@ -53,8 +59,5 @@ ________________________________________________________________________________
 * day09 - 2/3
   
 </details>
-
-Сабджекты и чек-листы
-https://github.com/ruslan16/JavaPiscine42/tree/master/subject%2Bchecklist
 
 </details>
