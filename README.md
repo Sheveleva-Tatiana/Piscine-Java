@@ -11,6 +11,8 @@
 * SQL: https://sqlbolt.com/
   
 * Сабджекты и чек-листы: https://github.com/ruslan16/JavaPiscine42/tree/master/subject%2Bchecklist
+
+* Для Day05 (Мастер-класс по Java для начинающих. Создаем консольное приложение, взаимодействующее с PostgreSQL): https://www.youtube.com/watch?v=-vhn8lSPiLo&t=397s
   
 </details>
   
