@@ -1,5 +1,3 @@
-package Day02.ex01;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,9 @@ public class Program {
             fillVector(readerTwo, vectorTwo);
 
             calculate();
-            System.out.println("Similarity = " + Math.floor(similarity * 100.0) / 100.0);
+            double result = Math.floor(similarity * 100.0) / 100.0;
+
+            System.out.println("Similarity = " + result);
 
             for (String word : dictionary) {
                 writer.write(word);
@@ -57,7 +57,11 @@ public class Program {
             denominatorA += vectorOne[i] * vectorOne[i];
             denominatorB += vectorTwo[i] * vectorTwo[i];
         }
-        similarity = numerator / (Math.sqrt(denominatorA) * Math.sqrt(denominatorB));
+        if ((denominatorA <= 0 || denominatorB <= 0)) {
+            similarity = 0;
+        } else {
+            similarity = numerator / (Math.sqrt(denominatorA) * Math.sqrt(denominatorB));
+        }
     }
 
     private static void fillVector(BufferedReader reader, int[] vector) throws IOException {
