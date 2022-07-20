@@ -1,5 +1,4 @@
 # Piscine-Java
-<details>
 <summary>ИНФА С ТЕЛЕГРАМ КАНАЛА Piscine Java - 2022 [p2p]</summary>
 
   
@@ -63,4 +62,3 @@
   
 </details>
 
-</details>
