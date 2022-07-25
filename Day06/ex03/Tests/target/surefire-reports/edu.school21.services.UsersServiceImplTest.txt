@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: edu.school21.services.UsersServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.052 s <<< FAILURE! - in edu.school21.services.UsersServiceImplTest
+edu.school21.services.UsersServiceImplTest.isCorrectPasswordTest  Time elapsed: 0 s  <<< ERROR!
+java.lang.ExceptionInInitializerError
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+Caused by: java.lang.reflect.InaccessibleObjectException: Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain) throws java.lang.ClassFormatError accessible: module java.base does not "opens java.lang" to unnamed module @6671dc81
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+
+edu.school21.services.UsersServiceImplTest.isCorrectLoginTest  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NoClassDefFoundError: Could not initialize class org.mockito.internal.creation.cglib.ClassImposterizer$3
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.ExceptionInInitializerError [in thread "main"]
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+
+edu.school21.services.UsersServiceImplTest.correctLoginAndPasswordTest  Time elapsed: 0 s  <<< ERROR!
+java.lang.NoClassDefFoundError: Could not initialize class org.mockito.internal.creation.cglib.ClassImposterizer$3
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.ExceptionInInitializerError [in thread "main"]
+	at edu.school21.services.UsersServiceImplTest.<init>(UsersServiceImplTest.java:20)
+
