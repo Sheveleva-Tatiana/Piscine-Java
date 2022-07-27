@@ -1,9 +1,0 @@
-edu/school21/numbers/NumberWorker.class
-edu/school21/exceptions/AlreadyAuthenticatedException.class
-edu/school21/repositories/UsersRepository.class
-edu/school21/models/User.class
-edu/school21/numbers/NumberWorker$IllegalNumberException.class
-edu/school21/repositories/ProductsRepository.class
-edu/school21/models/Product.class
-edu/school21/services/UsersServiceImpl.class
-edu/school21/repositories/ProductsRepositoryJdbcImpl.class
