@@ -1,0 +1,12 @@
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/repositories/MessagesRepository.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/repositories/UsersRepositoryImpl.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/config/SocketsApplicationConfig.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/models/User.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/services/UsersService.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/app/Main.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/services/UsersServiceImpl.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/models/Message.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/repositories/CrudRepository.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/server/Server.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/repositories/UsersRepository.java
+/Users/sshera/Piscine-Java_forGIT/Day09/ex01/Chat/SocketServer/src/main/java/edu/school21/sockets/repositories/MessagesRepositoryImpl.java
