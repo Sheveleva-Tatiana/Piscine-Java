@@ -16,15 +16,19 @@ public class Urls {
     private Map<Integer, String> urlsList = new TreeMap<>();
 
     public Urls() throws IOException {
-        List<String> list = Files.readAllLines(Paths.get("./src/Day03/ex03/files_urls.txt"));
+        List<String> list = Files.readAllLines(Paths.get("/opt/goinfre/sshera/Piscine-Java/Day03/ex03/files_urls.txt"));
         list = list.stream().map(s -> s = s.trim()).filter(s -> !s.isEmpty()).collect(Collectors.toList());
         if (list.size() == 0) {
             throw new RemoteException("There are no URLs in the file 'files_urls.txt'");
         }
-
-        for (String str : list) {
-            String[] keyValue = str.split("\\s+");
-            urlsList.put(Integer.parseInt(keyValue[0]), keyValue[1]);
+        try {
+            for (String str : list) {
+                String[] keyValue = str.split("\\s+");
+                urlsList.put(Integer.parseInt(keyValue[0]), keyValue[1]);
+            }
+        } catch (Exception e) {
+            System.err.println("Wrong file");
+            System.exit(-1);
         }
     }
 

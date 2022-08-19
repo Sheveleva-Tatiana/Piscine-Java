@@ -3,8 +3,7 @@ package Day03.ex02;
 import java.util.Random;
 
 public class Utils {
-    private static int MIN_INT = -1000;
-    private static int MAX_INT = 1001;
+    private static int MAX_INT = 2001;
     private static int arraySize, threadsCount;
     private static int[] arrayNumber;
     private static FtThread[] threads;
@@ -31,7 +30,13 @@ public class Utils {
 
     public static void letsStart() {
         arrayNumber = new int[arraySize];
-        int parts = (int) Math.ceil((double)arraySize / threadsCount);
+        int parts;
+        int compare = (int) Math.ceil((double)arraySize / threadsCount);
+        if ((double)arraySize / compare > (double)threadsCount - 1) {
+            parts = (int) Math.ceil((double) arraySize / threadsCount);
+        } else {
+            parts = (int) Math.floor((double) arraySize / threadsCount);
+        }
         int lastPart = arraySize - (parts * (threadsCount - 1));
         threads = new FtThread[threadsCount];
 
@@ -71,7 +76,7 @@ public class Utils {
         Random random = new Random();
 
         for (int i = 0; i < arraySize; i++) {
-            arrayNumber[i] = random.nextInt(MIN_INT, MAX_INT);
+            arrayNumber[i] = random.nextInt(MAX_INT) - 1000;
             sum += arrayNumber[i];
         }
         System.out.println("Sum: " + sum);

@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class FtThread extends Thread {
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
     private Urls urls;
     private int num;
 
@@ -27,17 +29,15 @@ public class FtThread extends Thread {
                 try (BufferedInputStream input = new BufferedInputStream(new URL(str).openStream());
                      FileOutputStream output = new FileOutputStream(file)) {
                     fileNumber = urls.getUrlsListIndex(str);
-                    System.out.println("Thread-" + num + " start download file number " + fileNumber);
+                    System.out.println(ANSI_YELLOW + "Thread-" + num + " start download file number " + fileNumber);
 
                     while ((byteRead = input.read(dataBuffer)) != -1) {
                         output.write(dataBuffer, 0, byteRead);
                     }
-                    System.out.println("Thread-" + num + " finish download file number " + fileNumber);
+                    System.out.println(ANSI_GREEN + "Thread-" + num + " finish download file number " + fileNumber);
 
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    System.err.println("File number " + urls.getUrlsListIndex(str) + " not downloaded: " + e.getMessage());
                 }
             }
         }
