@@ -3,7 +3,7 @@
 
 
 
-<summary>ИНФА С ТЕЛЕГРАМ КАНАЛА Piscine Java - 2022 [p2p]</summary>
+<summary>ИНФА С ТЕЛЕГРАМ КАНАЛА Piscine Java - 2022 [p2p] - ссылка-приглашение https://t.me/+FmEw6vO__R9iNDAy</summary>
 
   
 <details>
