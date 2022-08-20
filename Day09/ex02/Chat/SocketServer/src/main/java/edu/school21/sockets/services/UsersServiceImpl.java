@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -45,7 +46,17 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void createMessage(String message) {
-        messagesRepository.save(new Message(message));
+    public void createMessage(String message, String author, String title) {
+        messagesRepository.save(new Message(message, author, title));
+    }
+
+    @Override
+    public List<Message> getAllMessageByTitle(String title) {
+        return messagesRepository.findAllByRoom(title);
+    }
+
+    @Override
+    public Message findLastRoom(String author) {
+        return messagesRepository.findLastRoomByAuthor(author);
     }
 }

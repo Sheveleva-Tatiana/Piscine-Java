@@ -34,12 +34,30 @@ public class ServerReader extends Thread {
     private void receiveMessage() throws IOException, InterruptedException {
         while (reader.hasNextLine()) {
             String message = reader.nextLine();
-            if ("Authorization successful!".equals(message)) {
-                serverWriter.isAuthorized = true;
-            } else if ("You have left the chat".equals(message)) {
+            if ("Enter username: ".equals(message)) {
+                serverWriter.isReadingThree = false;
+            }
+            if ("Choose command:".equals(message)) {
+                serverWriter.canFinish = true;
+            }
+            if ("1. Create room".equals(message)) {
+                serverWriter.canFinish = false;
+            }
+            if ("Authorization failed!".equals(message) || "Authorization successful!".equals(message) ||
+                    message.contains("already exist") || "1. Create room".equals(message) || message.contains("created!")) {
+                serverWriter.isReadingThree = true;
+            }
+            if ("You have left the chat".equals(message)) {
                 serverWriter.inRoom = false;
-            } else if (message.contains("---")) {
+                serverWriter.canFinish = false;
+            }
+            if (message.contains("Rooms:") || message.contains("---")) {
+                serverWriter.isReadingThree = false;
+                serverWriter.canFinish = false;
+            }
+            if (message.contains("---")) {
                 serverWriter.inRoom = true;
+                serverWriter.canFinish = false;
             }
 
             System.out.println(message);

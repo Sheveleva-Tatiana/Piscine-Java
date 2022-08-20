@@ -1,6 +1,7 @@
 package edu.school21.sockets.server;
 
 import edu.school21.sockets.models.Chatroom;
+import edu.school21.sockets.models.Message;
 import edu.school21.sockets.models.User;
 import edu.school21.sockets.services.RoomsService;
 import edu.school21.sockets.services.UsersService;
@@ -65,9 +66,11 @@ public class Server {
         }
     }
 
-    private synchronized void sendMessageToRoom(String message, String roomTitles) {
-        usersService.createMessage(message);
-        clients.stream().filter(title -> Objects.equals(title.roomTitle, roomTitles)).forEach(c -> c.writer.println(message));
+    private synchronized void sendMessageToRoom(String message, String roomTitles, String senderName) {
+        usersService.createMessage(message, senderName, roomTitles);
+        clients.stream().filter(title -> Objects.equals(title.roomTitle, roomTitles)).
+                filter(name -> !Objects.equals(name.username, senderName)).
+                forEach(c -> c.writer.println(senderName + ": " + message));
     }
 
     private void removeClient(Client client) {
@@ -94,7 +97,6 @@ public class Server {
         private String username;
         private String roomTitle;
         private String password;
-        boolean isAuthorized = false;
 
 
         Client(Socket socket) {
@@ -111,7 +113,7 @@ public class Server {
         public void run() {
             writer.println("Hello from Server!");
 
-            while (true && !isAuthorized) {
+            while (true) {
                 writer.println("Choose command:");
                 writer.println("1. SignUp");
                 writer.println("2. SignIn");
@@ -124,8 +126,9 @@ public class Server {
                         if ("1".equalsIgnoreCase(message)) {
                             signUpUser();
                         } else if ("2".equalsIgnoreCase(message)) {
-                            signInUser();
-                            chooseOrCreateRoom();
+                            if (signInUser()) {
+                                chooseOrCreateRoom();
+                            }
                         } else if ("".equals(message)) {
                             continue;
                         } else if ("3".equals(message) || "exit".equals(message)) {
@@ -160,7 +163,8 @@ public class Server {
                         } else if ("2".equalsIgnoreCase(message)) {
                             chooseRoom();
                         } else if ("3".equals(message) || "exit".equals(message)) {
-                            exitChat();
+                            System.out.println("User: '" + username + "' logged out");
+                            writer.println("Logout for " + username);
                             return;
                         } else if ("".equals(message)) {
                             continue;
@@ -176,8 +180,6 @@ public class Server {
                     writer.println(e.getMessage());
                 }
             }
-
-
         }
 
         private void chooseRoom() {
@@ -198,10 +200,10 @@ public class Server {
                     numberRoom = Integer.parseInt(reader.nextLine().trim());
                     if (numberRoom <= allRooms.size() && numberRoom > 0) {
                         roomTitle = allRooms.get(numberRoom - 1).getTitle();
+                        System.out.println("User '" + username + "' in room: '" + roomTitle + "'");
                         talk();
                         break;
                     } else if (numberRoom == allRooms.size() + 1) {
-                        exitChat();
                         return;
                     } else {
                         writer.println("Wrong number of room. Please, try again.");
@@ -221,28 +223,42 @@ public class Server {
             }
             roomsService.createRoom(new Chatroom(roomTitle, username));
             rooms.add(roomTitle);
-            writer.println("Room created!");
+            System.out.println("User: '" + username + "' created room: " + roomTitle);
+            writer.println("Room '" + roomTitle + "' created!");
         }
 
-        private void signInUser() {
+        private boolean signInUser() {
             if (!getUserPass()) {
                 exitChat();
             }
             if (usersService.signIn(username, password)) {
                 writer.println("Authorization successful!");
                 System.out.println("Authorization successful for user: " + username);
-                isAuthorized = true;
+                Message msglastRoom = usersService.findLastRoom(username);
+                String lastRoom;
+                if (msglastRoom != null) {
+                    lastRoom = msglastRoom.getTitleRoom();
+                    writer.println("______________________________________________");
+                    writer.println("Last time you were in room: '" + lastRoom + "'");
+                    showLastThirtyMessage(lastRoom);
+                    writer.println("______________________________________________");
+
+                }
+                return true;
             } else {
                 writer.println("Authorization failed!");
                 System.out.println("Authorization failed for user: " + username);
+                return false;
             }
         }
 
         private void signUpUser() {
             if (!getUserPass()) {
                 exitChat();
+                return;
             }
             usersService.signUp(new User(username, password));
+            System.out.println("User '" + username + "' was created.");
             writer.println("User: " + username + " created!");
         }
 
@@ -270,16 +286,26 @@ public class Server {
             return true;
         }
 
+        private void showLastThirtyMessage(String title) {
+            List<Message> allMessage = usersService.getAllMessageByTitle(title);
+            if (!allMessage.isEmpty()) {
+                for (Message msg : allMessage) {
+                    writer.println(msg.getAuthor() + ": " + msg.getMessage());
+                }
+            }
+        }
         private void talk() {
             writer.println(roomTitle + "---");
+            showLastThirtyMessage(roomTitle);
             while (true) {
                 String message = reader.nextLine().trim();
 
                 if ("exit".equals(message)) {
+                    System.out.println(username + " left room: " + roomTitle);
                     writer.println("You have left the chat");
                     break;
                 }
-                sendMessageToRoom(username + ": " + message, roomTitle);
+                sendMessageToRoom(message, roomTitle, username);
             }
         }
 

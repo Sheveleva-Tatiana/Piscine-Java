@@ -11,8 +11,9 @@ public class ServerWriter extends Thread {
     boolean active = true;
     Scanner reader;
     Socket socket;
-    boolean isAuthorized = false;
+    boolean isReadingThree = true;
     boolean inRoom = false;
+    boolean canFinish = true;
 
     public ServerWriter(PrintWriter writer, Scanner reader, Socket socket) {
         this.writer = writer;
@@ -35,7 +36,8 @@ public class ServerWriter extends Thread {
             String message = scanner.nextLine();
             writer.println(message);
 
-            if (("exit".equals(message) && !inRoom) || ("3".equals(message) && !isAuthorized)) {
+            if (("exit".equals(message) && !inRoom && canFinish) ||
+                    ("3".equals(message) && isReadingThree && canFinish)) {
                 break;
             }
         }
