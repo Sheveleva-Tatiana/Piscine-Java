@@ -26,12 +26,6 @@ public class Client {
         serverWriter.start();
         serverReader.join();
         serverWriter.join();
-        if (!serverReader.isAlive()) {
-            System.out.println("Поток чтения закрылся");
-        }
-        if (!serverWriter.isAlive()) {
-            System.out.println("Поток записи закрылся");
-        }
     }
 
     public synchronized static void close(PrintWriter writer,  Scanner reader, Socket socket, int flag) throws IOException {
