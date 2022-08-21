@@ -1,5 +1,7 @@
 package edu.school21.sockets.client;
 
+import org.w3c.dom.ls.LSOutput;
+
 import javax.net.SocketFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,10 +26,15 @@ public class Client {
         serverWriter.start();
         serverReader.join();
         serverWriter.join();
+        if (!serverReader.isAlive()) {
+            System.out.println("Поток чтения закрылся");
+        }
+        if (!serverWriter.isAlive()) {
+            System.out.println("Поток записи закрылся");
+        }
     }
 
     public synchronized static void close(PrintWriter writer,  Scanner reader, Socket socket, int flag) throws IOException {
-        reader.close();
         writer.close();
         socket.close();
         if (flag == -1) {

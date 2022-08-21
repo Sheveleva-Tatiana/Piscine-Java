@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.Socket;
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ServerReader extends Thread {
@@ -35,7 +36,10 @@ public class ServerReader extends Thread {
 
     private void receiveMessage() throws IOException, InterruptedException {
         while (reader.hasNextLine()) {
-            String message = reader.nextLine();
+            String getJSON = reader.nextLine();
+            JSONMessage jsonMessage = JSONConverter.parseToObject(getJSON);
+            String message = jsonMessage.getMessage();
+            LocalDateTime time = jsonMessage.getTime();
             if ("Enter username: ".equals(message)) {
                 serverWriter.isReadingThree = false;
             }
@@ -64,7 +68,9 @@ public class ServerReader extends Thread {
 
             System.out.println(message);
         }
-        serverWriter.active = false;
-        Client.close(writer, reader, socket, -1);
+        if (serverWriter.active) {
+            serverWriter.active = false;
+            Client.close(writer, reader, socket, -1);
+        }
     }
 }

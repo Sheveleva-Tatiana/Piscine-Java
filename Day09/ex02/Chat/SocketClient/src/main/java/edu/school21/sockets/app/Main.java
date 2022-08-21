@@ -27,6 +27,7 @@ public class Main {
                     scanner.close();
                     System.exit(0);
                 }
+                answer = scanner.nextLine();
                 continue;
             }
         }
