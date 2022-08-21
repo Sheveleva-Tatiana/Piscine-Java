@@ -19,6 +19,7 @@ public class ServerWriter extends Thread {
         this.writer = writer;
         this.reader = reader;
         this.socket = socket;
+
     }
 
 
@@ -41,8 +42,9 @@ public class ServerWriter extends Thread {
                 break;
             }
         }
+        if (!active) {
+            return;
+        }
         Client.close(writer, reader, socket, 0);
     }
-
-
 }

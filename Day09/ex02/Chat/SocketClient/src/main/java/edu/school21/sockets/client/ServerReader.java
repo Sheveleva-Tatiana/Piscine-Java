@@ -1,5 +1,7 @@
 package edu.school21.sockets.client;
 
+import edu.school21.sockets.app.Main;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -62,6 +64,7 @@ public class ServerReader extends Thread {
 
             System.out.println(message);
         }
+        serverWriter.active = false;
         Client.close(writer, reader, socket, -1);
     }
 }

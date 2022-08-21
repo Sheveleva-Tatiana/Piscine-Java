@@ -22,6 +22,8 @@ public class Client {
         ServerReader serverReader = new ServerReader(reader, writer, socket, serverWriter);
         serverReader.start();
         serverWriter.start();
+        serverReader.join();
+        serverWriter.join();
     }
 
     public synchronized static void close(PrintWriter writer,  Scanner reader, Socket socket, int flag) throws IOException {
@@ -29,7 +31,8 @@ public class Client {
         writer.close();
         socket.close();
         if (flag == -1) {
-            System.out.println("Server is DEAD :(");
+            System.out.println("Server connection lost :(");
+            return;
         }
         System.exit(flag);
     }
