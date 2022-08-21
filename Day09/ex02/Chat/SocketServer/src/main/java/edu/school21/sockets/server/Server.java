@@ -69,7 +69,6 @@ public class Server {
     private synchronized void sendMessageToRoom(String message, String roomTitles, String senderName) {
         usersService.createMessage(message, senderName, roomTitles);
         clients.stream().filter(title -> Objects.equals(title.roomTitle, roomTitles)).
-                filter(name -> !Objects.equals(name.username, senderName)).
                 forEach(c -> c.writer.println(senderName + ": " + message));
     }
 
