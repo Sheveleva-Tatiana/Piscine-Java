@@ -69,7 +69,7 @@ public class Server {
     private synchronized void sendMessageToRoom(String message, String roomTitles, String senderName) {
         usersService.createMessage(message, senderName, roomTitles);
         clients.stream().filter(title -> Objects.equals(title.roomTitle, roomTitles)).
-                forEach(c -> c.writer.println(senderName + ": " + message));
+                forEach(c -> c.sendMsgToClient(senderName + ": " + message));
     }
 
     private void removeClient(Client client) {
@@ -110,17 +110,17 @@ public class Server {
 
         @Override
         public void run() {
-            writer.println("Hello from Server!");
+            sendMsgToClient("Hello from Server!");
 
             while (true) {
-                writer.println("Choose command:");
-                writer.println("1. SignUp");
-                writer.println("2. SignIn");
-                writer.println("3. Exit");
+                sendMsgToClient("Choose command:");
+                sendMsgToClient("1. SignUp");
+                sendMsgToClient("2. SignIn");
+                sendMsgToClient("3. Exit");
 
                 try {
                     if (reader.hasNextLine()) {
-                        String message = reader.nextLine().trim();
+                        String message = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
 
                         if ("1".equalsIgnoreCase(message)) {
                             signUpUser();
@@ -134,7 +134,7 @@ public class Server {
                             exitChat();
                             return;
                         } else {
-                            writer.println("Unknown command!");
+                            sendMsgToClient("Unknown command!");
                         }
                     } else {
                         exitChat();
@@ -142,19 +142,19 @@ public class Server {
                     }
                 } catch (RuntimeException e) {
                     System.err.println(e);
-                    writer.println(e.getMessage());
+                    sendMsgToClient(e.getMessage());
                 }
             }
         }
 
         private void chooseOrCreateRoom() {
             while(true) {
-                writer.println("1. Create room");
-                writer.println("2. Choose room");
-                writer.println("3. Exit");
+                sendMsgToClient("1. Create room");
+                sendMsgToClient("2. Choose room");
+                sendMsgToClient("3. Exit");
                 try {
                     if (reader.hasNextLine()) {
-                        String message = reader.nextLine().trim();
+                        String message = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
 
                         if ("1".equalsIgnoreCase(message)) {
                             createRoom();
@@ -163,12 +163,12 @@ public class Server {
                             chooseRoom();
                         } else if ("3".equals(message) || "exit".equals(message)) {
                             System.out.println("User: '" + username + "' logged out");
-                            writer.println("Logout for " + username);
+                            sendMsgToClient("Logout for " + username);
                             return;
                         } else if ("".equals(message)) {
                             continue;
                         } else {
-                            writer.println("Unknown command!");
+                            sendMsgToClient("Unknown command!");
                         }
                     } else {
                         exitChat();
@@ -176,7 +176,7 @@ public class Server {
                     }
                 } catch (RuntimeException e) {
                     System.err.println(e);
-                    writer.println(e.getMessage());
+                    sendMsgToClient(e.getMessage());
                 }
             }
         }
@@ -185,18 +185,18 @@ public class Server {
             int numberRoom;
             List<Chatroom> allRooms = roomsService.showAllRooms();
             if (allRooms.isEmpty()) {
-                writer.println("No room created!");
+                sendMsgToClient("No room created!");
                 return;
             } else {
-                writer.println("Rooms: ");
+                sendMsgToClient("Rooms: ");
                 for (int i = 0; i < allRooms.size(); i++) {
-                    writer.println(i + 1 + ". " + allRooms.get(i).getTitle());
+                    sendMsgToClient(i + 1 + ". " + allRooms.get(i).getTitle());
                 }
-                writer.println(allRooms.size() + 1 + ". Exit");
+                sendMsgToClient(allRooms.size() + 1 + ". Exit");
             }
             while (true) {
                 try {
-                    numberRoom = Integer.parseInt(reader.nextLine().trim());
+                    numberRoom = Integer.parseInt(JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON());
                     if (numberRoom <= allRooms.size() && numberRoom > 0) {
                         roomTitle = allRooms.get(numberRoom - 1).getTitle();
                         System.out.println("User '" + username + "' in room: '" + roomTitle + "'");
@@ -205,25 +205,25 @@ public class Server {
                     } else if (numberRoom == allRooms.size() + 1) {
                         return;
                     } else {
-                        writer.println("Wrong number of room. Please, try again.");
+                        sendMsgToClient("Wrong number of room. Please, try again.");
                     }
                 } catch (Exception e) {
-                    writer.println(e.getMessage());
+                    sendMsgToClient(e.getMessage());
                 }
             }
         }
 
         private void createRoom() {
-            writer.println("The process of creating a room has begun...");
-            writer.println("Enter Title for new room");
-            roomTitle = reader.nextLine().trim();
+            sendMsgToClient("The process of creating a room has begun...");
+            sendMsgToClient("Enter Title for new room");
+            roomTitle = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
             while("".equals(roomTitle)) {
-                roomTitle = reader.nextLine().trim();
+                roomTitle = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
             }
             roomsService.createRoom(new Chatroom(roomTitle, username));
             rooms.add(roomTitle);
             System.out.println("User: '" + username + "' created room: " + roomTitle);
-            writer.println("Room '" + roomTitle + "' created!");
+            sendMsgToClient("Room '" + roomTitle + "' created!");
         }
 
         private boolean signInUser() {
@@ -231,24 +231,28 @@ public class Server {
                 exitChat();
             }
             if (usersService.signIn(username, password)) {
-                writer.println("Authorization successful!");
+                sendMsgToClient("Authorization successful!");
                 System.out.println("Authorization successful for user: " + username);
                 Message msglastRoom = usersService.findLastRoom(username);
                 String lastRoom;
                 if (msglastRoom != null) {
                     lastRoom = msglastRoom.getTitleRoom();
-                    writer.println("______________________________________________");
-                    writer.println("Last time you were in room: '" + lastRoom + "'");
+                    sendMsgToClient("______________________________________________");
+                    sendMsgToClient("Last time you were in room: '" + lastRoom + "'");
                     showLastThirtyMessage(lastRoom);
-                    writer.println("______________________________________________");
+                    sendMsgToClient("______________________________________________");
 
                 }
                 return true;
             } else {
-                writer.println("Authorization failed!");
+                sendMsgToClient("Authorization failed!");
                 System.out.println("Authorization failed for user: " + username);
                 return false;
             }
+        }
+
+        private void sendMsgToClient(String text) {
+            writer.println(Objects.requireNonNull(JSONConverter.makeJSONObject(text)).toJSONString());
         }
 
         private void signUpUser() {
@@ -258,25 +262,25 @@ public class Server {
             }
             usersService.signUp(new User(username, password));
             System.out.println("User '" + username + "' was created.");
-            writer.println("User: " + username + " created!");
+            sendMsgToClient("User: " + username + " created!");
         }
 
         private boolean getUserPass() {
-            writer.println("Enter username: ");
-            username = reader.nextLine().trim();
+            sendMsgToClient("Enter username: ");
+            username = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
 
             while("".equals(username)) {
-                username = reader.nextLine().trim();
+                username = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
             }
 
             if ("exit".equals(username)) {
                 return false;
             }
-            writer.println("Enter password: ");
-            password = reader.nextLine().trim();
+            sendMsgToClient("Enter password: ");
+            password = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
 
             while("".equals(password)) {
-                password = reader.nextLine().trim();
+                password = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
             }
 
             if ("exit".equals(password)) {
@@ -289,19 +293,18 @@ public class Server {
             List<Message> allMessage = usersService.getAllMessageByTitle(title);
             if (!allMessage.isEmpty()) {
                 for (Message msg : allMessage) {
-                    writer.println(msg.getAuthor() + ": " + msg.getMessage());
+                    sendMsgToClient(msg.getAuthor() + ": " + msg.getMessage());
                 }
             }
         }
         private void talk() {
-            writer.println(roomTitle + "---");
+            sendMsgToClient(roomTitle + "---");
             showLastThirtyMessage(roomTitle);
             while (true) {
-                String message = reader.nextLine().trim();
-
+                String message = JSONConverter.parseToObject(reader.nextLine().trim()).getMessageJSON();
                 if ("exit".equals(message)) {
                     System.out.println(username + " left room: " + roomTitle);
-                    writer.println("You have left the chat");
+                    sendMsgToClient("You have left the chat");
                     break;
                 }
                 sendMessageToRoom(message, roomTitle, username);
@@ -310,7 +313,7 @@ public class Server {
 
         private void exitChat() {
             try {
-                writer.println("exit");
+                sendMsgToClient("exit");
                 removeClient(this);
                 reader.close();
                 writer.close();
