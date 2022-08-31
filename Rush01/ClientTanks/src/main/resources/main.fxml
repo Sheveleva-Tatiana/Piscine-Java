@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tanks.Main">
+   <children>
+      <Group id="root">
+         <children>
+            <Canvas id="canvas" height="1024.0" nodeOrientation="INHERIT" width="1024.0" />
+            <ImageView fitHeight="1024.0" fitWidth="1024.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@field.png" />
+               </image>
+            </ImageView>
+            <ImageView id="enemy" fx:id="enemy" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@enemydown.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="player" fitHeight="150.0" fitWidth="200.0" layoutX="454.0" layoutY="797.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@playerup.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="780.0" layoutY="29.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@life.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@border.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane id="lifeLevelPlayer" layoutX="27.0" layoutY="797.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@life.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@border.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>
