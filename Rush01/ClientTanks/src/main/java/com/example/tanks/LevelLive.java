@@ -8,6 +8,11 @@ public class LevelLive {
     private ImageView border;
     private ImageView life;
     private int LEVEL = 305;
+
+    public void setLevelLife(int levelLife) {
+        this.levelLife = levelLife;
+    }
+
     private int levelLife = 100;
 
     public LevelLive(Group root, double positionX, double positionY, GraphicsContext gc) {

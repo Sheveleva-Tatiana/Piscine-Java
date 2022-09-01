@@ -28,17 +28,14 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Server is run");
-            while (true) {
+            while (num != 2) {
                 Socket socket = serverSocket.accept();
                 Client client = new Client(socket, ++num);
                 clients.add(client);
                 System.out.println("New client connected! Number of clients: " + num);
                 pointsService.createClient(num);
-                if (num == 2) {
-                    clients.forEach(Thread::start);
-                    break;
-                }
             }
+            clients.forEach(Thread::start);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,7 +44,7 @@ public class Server {
     private void removeClient(Client client) {
         clients.remove(client);
         num--;
-        System.out.println("The user has left the chat.");
+        System.out.println("The user has left the game.");
     }
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -97,6 +94,8 @@ public class Server {
                         clients.stream().filter(client -> this.num != client.num).
                                     forEach(c -> c.writer.println(finalInput1));
                     } else {
+                        clients.stream().filter(client -> this.num != client.num).
+                                forEach(c -> c.writer.println("enemyLeftGame"));
                         exitClient();
                         return;
                     }

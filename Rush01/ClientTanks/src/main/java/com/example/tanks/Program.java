@@ -1,14 +1,27 @@
 package com.example.tanks;
 
+import com.dlsc.formsfx.model.structure.PasswordField;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -18,7 +31,6 @@ import java.util.HashMap;
 public class Program extends Application {
 
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
-
     public static final double WIDTH = 1042;
     public static final double HEIGHT = 1042;
     private static BufferedReader in;
@@ -33,10 +45,16 @@ public class Program extends Application {
     public static AnimationTimer animationTimer;
     public static Stage mainStage;
     public static boolean canPlay = false;
+    public static boolean canConnect= false;
 
+
+
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
-    public void start(Stage stage) throws IOException, InterruptedException {
+    public void start(Stage stage) throws IOException {
         mainStage = stage;
 
         stage.setTitle("Tanks!");
@@ -50,10 +68,8 @@ public class Program extends Application {
 
         Image background = new Image("field.png");
 
-        player = new Character("playerup.png", 480, 850, root, 20, 980, gc);
-        enemy = new Character("enemydown.png", 480, 72, root, 700, 20, gc);
-
         getConnection();
+
         if (!in.ready()) {
             new AnimationTimer() {
                 int i = 0;
@@ -82,6 +98,9 @@ public class Program extends Application {
         }
         stage.show();
 
+        player = new Character("playerup.png", 480, 850, root, 20, 980, gc);
+        enemy = new Character("enemydown.png", 480, 72, root, 700, 20, gc);
+
         scene.setOnKeyPressed(event -> {
             String code = event.getCode().toString();
             if (code.equals("SPACE") && lastKey.equals("SPACE")) {
@@ -104,7 +123,9 @@ public class Program extends Application {
                         updatePlayer();
                         updateEnemy();
                         updateBullet();
-                        if (!enemy.checkLife())
+                        if (enemy.checkLeaveGame()) {
+                            Program.GameOver("leftgame.png");
+                        } else if (!enemy.checkLife())
                             Program.GameOver("win.png");
                         if (!player.checkLife())
                             Program.GameOver("lose.png");
@@ -149,6 +170,8 @@ public class Program extends Application {
                 enemy.moveRight(SPEED);
             } else if ("outshoot".contains(read)) {
                 outShoot("/bulletDown.png", enemy, player, enemy.getBoundary().getHeight());
+            } else if("enemyLeftGame".contains(read)) {
+                 enemy.kill();
             }
         }
     }
@@ -174,9 +197,7 @@ public class Program extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+
 
     public static void GameOver(String str) throws IOException {
         animationTimer.stop();
@@ -219,8 +240,4 @@ public class Program extends Application {
         }.start();
         stage.show();
     }
-
-
-
-
 }

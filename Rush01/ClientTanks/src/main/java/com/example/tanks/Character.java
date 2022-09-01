@@ -67,6 +67,16 @@ public class Character {
         levelLive.takeDamage();
     }
 
+    public void kill() {
+        levelLive.setLevelLife(-10);
+    }
+
+    public boolean checkLeaveGame() {
+        if (levelLive.getLevelLife() == -10)
+            return true;
+        return false;
+    }
+
     public boolean checkLife() {
         if (levelLive.getLevelLife() > 0) {
             return true;
