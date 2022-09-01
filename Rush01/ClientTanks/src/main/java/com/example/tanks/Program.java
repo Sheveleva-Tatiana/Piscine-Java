@@ -193,10 +193,11 @@ public class Program extends Application {
         root.getChildren().add(canvas);
 
         out.println("gameOver");
-
-        String statistics = in.readLine();
-        System.out.println(statistics);
-        String[] info = statistics.split(":");
+        String getStr = in.readLine();
+        while (!getStr.contains("stat")) {
+            getStr = in.readLine();
+        }
+        String[] info = getStr.split(":");
 
         Image background = new Image(str);
         gc.drawImage(background, 0, 0);
@@ -206,13 +207,13 @@ public class Program extends Application {
             public void handle(long currentNanoTime) {
                 gc2.drawImage(new Image(str), 0, 0);
 
-                gc2.strokeText( info[0], 535, 500 );
-                gc2.strokeText( info[1], 535, 620 );
-                gc2.strokeText( info[2], 535, 730 );
+                gc2.strokeText( info[1], 535, 500 );
+                gc2.strokeText( info[2], 535, 620 );
+                gc2.strokeText( info[3], 535, 730 );
 
-                gc2.strokeText( info[3], 780, 500 );
-                gc2.strokeText( info[4], 780, 620 );
-                gc2.strokeText( info[5], 780, 730 );
+                gc2.strokeText( info[4], 780, 500 );
+                gc2.strokeText( info[5], 780, 620 );
+                gc2.strokeText( info[6], 780, 730 );
 
             }
         }.start();

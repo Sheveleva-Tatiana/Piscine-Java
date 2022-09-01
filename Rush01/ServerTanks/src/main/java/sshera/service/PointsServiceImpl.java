@@ -44,6 +44,6 @@ public class PointsServiceImpl implements PointsService {
         Integer shot2 = info2.getShot();
         Integer hit2 = info2.getHit();
         Integer miss2 = shot2 - hit2;
-        return shot + ":" + hit + ":" + miss + ":" + shot2 + ":" + hit2 + ":" + miss2;
+        return "stat:" + shot + ":" + hit + ":" + miss + ":" + shot2 + ":" + hit2 + ":" + miss2;
     }
 }

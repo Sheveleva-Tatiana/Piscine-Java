@@ -80,7 +80,6 @@ public class Server {
                 try {
                     if (reader.hasNextLine()) {
                         String input = reader.nextLine();
-                        System.out.println(num + ": " + input);
                         if (input.equals("outshoot"))
                             pointsService.addShot(num);
                         else if(input.equals("hit"))
