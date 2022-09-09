@@ -5,10 +5,10 @@
 ### 1. Запустить сервер на PostgreSQL 
 > (в файле ServerTanks/src/main/resources/db.properties указать актуальный db.user и db.password)
 
-### 2. Запуск сервера:
+### 2. Запустить сервер:
 > java -jar ClientTanks/target/tank-game.jar
 
-### 3. Запуск клиента (для игры необходимо запустить 2 клиентов):
+### 3. Запустить клиент (для игры необходимо запустить 2 клиента):
 > java -jar ServerTanks/target/tank-game-client.jar
 
 
