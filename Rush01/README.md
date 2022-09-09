@@ -12,6 +12,9 @@
 > java -jar ServerTanks/target/tank-game-client.jar
 
 
-https://github.com/Sheveleva-Tatiana/Sheveleva-Tatiana/blob/main/accert/tanks2.gif
+
+
+
+![tanks](https://github.com/Sheveleva-Tatiana/Sheveleva-Tatiana/blob/main/accert/tanks2.gif)     
 
 
