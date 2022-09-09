@@ -2,7 +2,7 @@
 
 Установка:
 
-Из дериктории TerminalGame
+Из директории TerminalGame
 ```
 mvn install
 ```
