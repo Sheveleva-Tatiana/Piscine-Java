@@ -21,10 +21,18 @@
 
 [Урок 6: Внедрение зависимостей.Ч2](https://www.youtube.com/watch?v=dBxRmUH3Af8&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=6)
 
+[Урок 25: JDBC API. Базы данных](https://www.youtube.com/watch?v=5LHCmvzugQM&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=26)
+
+[Урок 27: JdbcTemplate](https://www.youtube.com/watch?v=YozbZQ7PxtQ&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=28)
+
 
  
  
  ### Для ex02:
 [Урок 9: Аннотации](https://www.youtube.com/watch?v=aXDMYy930b4&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=9)
+
 [Урок 10: Аннотация @Autowired](https://www.youtube.com/watch?v=KvyD2Vg4b1Q&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=10)
-[]
+
+[Урок 12: Аннотации @Scope, @Value](https://www.youtube.com/watch?v=oNfK1FJ7Lkw&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=12)
+
+[Урок 13: Конфигурация с помощью Java кода](https://www.youtube.com/watch?v=stuAmyyootQ&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=13)
