@@ -32,5 +32,7 @@ public class Program {
 
         datePrinter = context.getBean("printerWithDateErr", Printer.class);
         datePrinter.print("Hello!");
+        
+        //contex.registerShutdownHook(); Этот метод регистрирует перехватчик выключения в среде выполнения JVM . Когда JVM завершает работу, она также закрывает контейнер Spring
     }
 }
