@@ -15,5 +15,16 @@
 
 [Урок 4: Инверсия управления. Inversion of Control (IoC).](https://www.youtube.com/watch?v=Ns0IxBXDbWw&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=4) (Разбирается похожая задача из ex00)
 
+[Урок 5: Внедрение зависимостей.Ч1](https://www.youtube.com/watch?v=MjnVZgMnTT0&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=5) (Добавляются аргументы(ссылки на созданые бины) в контекст)
+
+### Для ex01:
+
+[Урок 6: Внедрение зависимостей.Ч2](https://www.youtube.com/watch?v=dBxRmUH3Af8&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=6)
+
 
  
+ 
+ ### Для ex02:
+[Урок 9: Аннотации](https://www.youtube.com/watch?v=aXDMYy930b4&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=9)
+[Урок 10: Аннотация @Autowired](https://www.youtube.com/watch?v=KvyD2Vg4b1Q&list=PLAma_mKffTOR5o0WNHnY0mTjKxnCgSXrZ&index=10)
+[]
