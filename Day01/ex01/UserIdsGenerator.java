@@ -2,8 +2,8 @@ package Day01.ex01;
 
 public class UserIdsGenerator {
 
-    private static UserIdsGenerator obj;
-    private static Integer identifier = 0;
+    private static final UserIdsGenerator obj;
+    private Integer identifier = 0;
 
     public static UserIdsGenerator getInstance() {
         if (obj == null) {
@@ -11,12 +11,14 @@ public class UserIdsGenerator {
         }
         return obj;
     }
+    
+    private UserIdsGenerator(){}
 
     public int generateId() {
         return ++identifier;
     }
 
-    public static Integer getIdentifier() {
+    public Integer getIdentifier() {
         return identifier;
     }
 }
